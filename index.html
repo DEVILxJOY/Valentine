@@ -1,12 +1,14 @@
-<html lang="en"><head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For You</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -30,16 +32,17 @@
             100% { background-position: 100% 100%; }
         }
 
-        /* Floating Hearts Animation */
+        /* Floating Hearts */
         @keyframes floatUp {
-            0% { transform: translateY(110vh) scale(0.5) rotate(0deg); opacity: 0; }
+            0% { transform: translateY(100vh) scale(0.5) rotate(0deg); opacity: 0; }
             20% { opacity: 0.6; }
-            100% { transform: translateY(-10vh) scale(1) rotate(360deg); opacity: 0; }
+            100% { transform: translateY(-20vh) scale(1) rotate(360deg); opacity: 0; }
         }
 
         .bg-floater {
             position: absolute;
             animation: floatUp linear infinite;
+            z-index: 0;
             pointer-events: none;
         }
 
@@ -59,7 +62,7 @@
         .delay-300 { animation-delay: 0.3s; }
         .delay-500 { animation-delay: 0.5s; }
 
-        /* Secretive Button Gradient Border */
+        /* Secret Button Gradient */
         .btn-secret {
             background: linear-gradient(white, white) padding-box,
                         linear-gradient(45deg, #fda4af, #f43f5e) border-box;
@@ -71,7 +74,6 @@
             position: fixed;
             animation: dropConfetti 4s ease-in forwards;
             z-index: 100;
-            pointer-events: none;
         }
 
         @keyframes dropConfetti {
@@ -80,17 +82,17 @@
             100% { transform: translateY(110vh) rotate(360deg) scale(0.8); opacity: 0; }
         }
 
-        /* Icon settings */
-        iconify-icon {
-            display: inline-block;
-            vertical-align: middle;
+        /* No Button Transition */
+        #btn-no {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
     </style>
 </head>
-<body class="min-h-screen relative overflow-x-hidden text-slate-600 selection:bg-rose-100 selection:text-rose-600 flex flex-col">
+<!-- Removed overflow-hidden to fix stuck scrolling, added overflow-x-hidden -->
+<body class="mesh-bg min-h-screen relative overflow-x-hidden overflow-y-auto text-slate-600 selection:bg-rose-100 selection:text-rose-600 flex flex-col">
 
-    <!-- Fixed Background Layer (Behind Content) -->
-    <div class="fixed inset-0 -z-10 mesh-bg overflow-hidden pointer-events-none">
+    <!-- Floating Background Hearts -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
         <div class="bg-floater text-rose-200/40 text-2xl" style="left: 10%; animation-duration: 15s; animation-delay: 0s;">
             <iconify-icon icon="solar:heart-linear"></iconify-icon>
         </div>
@@ -103,15 +105,12 @@
         <div class="bg-floater text-red-100/50 text-3xl" style="left: 85%; animation-duration: 14s; animation-delay: -8s;">
             <iconify-icon icon="solar:heart-angle-linear"></iconify-icon>
         </div>
-        <div class="bg-floater text-rose-200/30 text-5xl" style="left: 50%; animation-duration: 20s; animation-delay: -10s;">
-            <iconify-icon icon="solar:hearts-linear"></iconify-icon>
-        </div>
     </div>
 
     <!-- Navigation -->
-    <nav class="w-full flex justify-center py-6 fixed top-0 z-40 px-4">
-        <div class="bg-white/80 backdrop-blur-xl border border-white/60 shadow-sm shadow-rose-100/30 px-5 py-2.5 rounded-full flex items-center gap-3">
-            <span class="text-[10px] font-medium tracking-widest uppercase text-rose-900/60">
+    <nav class="w-full flex justify-center py-6 z-40 fixed top-0 pointer-events-none">
+        <div class="bg-white/70 backdrop-blur-xl border border-white/60 shadow-sm shadow-rose-100/30 px-5 py-2 rounded-full flex items-center gap-3 pointer-events-auto">
+            <span class="text-[10px] font-semibold tracking-widest uppercase text-rose-900/60">
                 Encrypted Love Letter
             </span>
             <iconify-icon icon="solar:lock-keyhole-minimalistic-linear" class="text-rose-300"></iconify-icon>
@@ -119,10 +118,10 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="flex-grow flex flex-col items-center pt-32 pb-20 px-6 w-full max-w-4xl mx-auto z-10">
+    <main class="flex-grow flex flex-col items-center justify-center px-6 pt-32 pb-12 max-w-3xl mx-auto w-full z-10 relative">
         
         <!-- Status -->
-        <div class="reveal mb-8 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-rose-50/50 border border-rose-100 text-rose-500 shadow-sm backdrop-blur-sm">
+        <div class="reveal mb-6 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-50/50 border border-rose-100 text-rose-500 shadow-sm backdrop-blur-sm">
             <iconify-icon icon="solar:heart-pulse-linear" class="text-sm animate-pulse"></iconify-icon>
             <span class="text-[10px] font-medium tracking-wide uppercase">
                 Incoming Question
@@ -130,26 +129,25 @@
         </div>
 
         <!-- Headline -->
-        <div class="reveal delay-100 text-center mb-8 max-w-2xl">
-            <h1 class="text-5xl md:text-7xl lg:text-8xl font-medium tracking-tight text-slate-900 leading-[1.05] md:leading-[1.1]">
+        <div class="reveal delay-100 text-center mb-6">
+            <h1 class="text-5xl md:text-7xl font-medium tracking-tight text-slate-900 leading-[1.05]">
                 Will you be my
-                <span class="block text-rose-500 mt-2 relative inline-block">
+                <span class="block text-rose-500 mt-1 relative inline-block">
                     Valentine?
-                    <iconify-icon icon="solar:stars-minimalistic-linear" class="absolute -top-6 -right-10 text-3xl text-rose-300 opacity-80 animate-bounce hidden md:block"></iconify-icon>
+                    <iconify-icon icon="solar:stars-minimalistic-linear" class="absolute -top-4 -right-8 text-2xl text-rose-300 opacity-80 animate-bounce"></iconify-icon>
                 </span>
             </h1>
         </div>
 
         <!-- Subtext -->
-        <p class="reveal delay-200 text-center text-sm md:text-lg font-light text-slate-500 max-w-md mx-auto leading-relaxed mb-12">
+        <p class="reveal delay-200 text-center text-lg md:text-xl font-light text-slate-500 max-w-md mx-auto leading-relaxed mb-10">
             I've hidden a little secret in this page, but first, I need the answer to the most important question.
         </p>
 
-        <!-- Buttons Container -->
-        <div class="reveal delay-300 flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 w-full relative min-h-[160px] md:min-h-[80px]">
-            
-            <!-- Yes Button (Secretive Style) -->
-            <button onclick="acceptProposal()" class="btn-secret group relative w-full md:w-64 h-14 rounded-full shadow-[0_8px_30px_rgb(251,113,133,0.15)] transition-all duration-300 hover:shadow-[0_8px_40px_rgb(251,113,133,0.3)] hover:-translate-y-0.5 active:scale-95 bg-white z-20">
+        <!-- Buttons Area -->
+        <div class="reveal delay-300 flex flex-col sm:flex-row items-center justify-center gap-5 w-full relative min-h-[5rem]">
+            <!-- Yes Button -->
+            <button onclick="acceptProposal()" class="btn-secret group relative w-64 h-14 rounded-full shadow-[0_8px_30px_rgb(251,113,133,0.15)] transition-all duration-300 hover:shadow-[0_8px_40px_rgb(251,113,133,0.3)] hover:-translate-y-0.5 active:scale-95 bg-white z-20">
                 <div class="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-rose-50 via-white to-rose-50"></div>
                 <div class="relative flex items-center justify-center gap-3 text-rose-600">
                     <span class="text-sm font-medium tracking-wide">Yes, Unlock My Heart</span>
@@ -157,93 +155,85 @@
                 </div>
             </button>
 
-            <!-- No Button (Dodging) -->
-            <!-- Wrapped in a div to hold space initially -->
-            <div class="relative w-full md:w-auto flex justify-center h-14">
-                <button id="btn-no" class="w-full md:w-auto min-w-[160px] h-14 px-8 rounded-full bg-white/40 border border-slate-200/60 text-slate-400 hover:text-slate-500 hover:bg-white/60 backdrop-blur-sm transition-all duration-200 flex items-center justify-center gap-2 z-30">
-                    <span class="text-sm font-medium tracking-wide">No, thanks</span>
-                </button>
-            </div>
+            <!-- No Button (Runaway) -->
+            <button id="btn-no" class="absolute sm:relative w-64 sm:w-auto h-14 px-8 rounded-full bg-white/40 border border-slate-200/60 text-slate-400 hover:text-slate-500 hover:bg-white/60 backdrop-blur-sm transition-all duration-200 flex items-center justify-center gap-2 z-50">
+                <span class="text-sm font-medium tracking-wide">No, thanks</span>
+            </button>
         </div>
 
-        <!-- Divider -->
-        <div class="reveal delay-300 w-full max-w-xs h-px bg-gradient-to-r from-transparent via-rose-200/50 to-transparent my-16"></div>
-
         <!-- Secret Notes Interaction -->
-        <div class="reveal delay-500 w-full max-w-sm bg-white/60 backdrop-blur-md rounded-2xl border border-white/60 p-6 md:p-8 shadow-[0_4px_20px_-4px_rgba(255,228,230,0.5)] text-center mx-auto">
-            <p class="text-[10px] font-medium tracking-widest uppercase text-rose-400 mb-6 flex items-center justify-center gap-2">
+        <div class="reveal delay-500 mt-16 w-full max-w-sm bg-white/40 backdrop-blur-md rounded-2xl border border-white/50 p-6 shadow-sm shadow-rose-100/20 text-center">
+            <p class="text-[10px] font-semibold tracking-widest uppercase text-rose-400 mb-4 flex items-center justify-center gap-2">
                 <iconify-icon icon="solar:folder-with-files-linear"></iconify-icon>
                 Secret Files
             </p>
-            <div class="grid grid-cols-3 gap-4 mb-6">
-                <button onclick="showSecret(this, 'You have the cutest smile 🌸')" class="group aspect-square rounded-xl bg-white border border-rose-100 hover:border-rose-300 hover:shadow-md transition-all flex flex-col items-center justify-center gap-2 text-slate-400 hover:text-rose-500">
-                    <iconify-icon icon="solar:gallery-heart-linear" class="text-2xl group-hover:scale-110 transition-transform duration-300"></iconify-icon>
+            <!-- Modified Grid with Heart Covers -->
+            <div class="grid grid-cols-3 gap-3 mb-4">
+                <button onclick="showSecret(this, 'You have the cutest smile 🌸')" class="group aspect-square rounded-xl bg-white border border-rose-100 hover:border-rose-300 hover:shadow-md transition-all flex flex-col items-center justify-center gap-1 text-slate-400 hover:text-rose-500 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-rose-50/30 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <iconify-icon icon="solar:heart-bold" class="text-3xl text-rose-200 group-hover:text-rose-400 group-hover:scale-110 transition-all duration-300"></iconify-icon>
                 </button>
-                <button onclick="showSecret(this, 'I adore your laugh ✨')" class="group aspect-square rounded-xl bg-white border border-rose-100 hover:border-rose-300 hover:shadow-md transition-all flex flex-col items-center justify-center gap-2 text-slate-400 hover:text-rose-500">
-                    <iconify-icon icon="solar:music-note-heart-linear" class="text-2xl group-hover:scale-110 transition-transform duration-300"></iconify-icon>
+                <button onclick="showSecret(this, 'I adore your laugh ✨')" class="group aspect-square rounded-xl bg-white border border-rose-100 hover:border-rose-300 hover:shadow-md transition-all flex flex-col items-center justify-center gap-1 text-slate-400 hover:text-rose-500 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-rose-50/30 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <iconify-icon icon="solar:heart-bold" class="text-3xl text-rose-200 group-hover:text-rose-400 group-hover:scale-110 transition-all duration-300"></iconify-icon>
                 </button>
-                <button onclick="showSecret(this, 'You are my favorite person 💖')" class="group aspect-square rounded-xl bg-white border border-rose-100 hover:border-rose-300 hover:shadow-md transition-all flex flex-col items-center justify-center gap-2 text-slate-400 hover:text-rose-500">
-                    <iconify-icon icon="solar:bookmark-circle-linear" class="text-2xl group-hover:scale-110 transition-transform duration-300"></iconify-icon>
+                <button onclick="showSecret(this, 'You are my favorite person 💖')" class="group aspect-square rounded-xl bg-white border border-rose-100 hover:border-rose-300 hover:shadow-md transition-all flex flex-col items-center justify-center gap-1 text-slate-400 hover:text-rose-500 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-rose-50/30 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <iconify-icon icon="solar:heart-bold" class="text-3xl text-rose-200 group-hover:text-rose-400 group-hover:scale-110 transition-all duration-300"></iconify-icon>
                 </button>
             </div>
             <div id="secret-display" class="min-h-[20px] text-xs font-medium text-slate-600 transition-all duration-300 opacity-0 transform translate-y-2">
-                Click an icon to reveal...
+                Tap a heart to reveal...
             </div>
         </div>
 
         <!-- Features Grid -->
-        <div class="reveal delay-500 mt-16 grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
-            <div class="p-6 rounded-2xl bg-white/40 border border-white/60 backdrop-blur-sm hover:bg-white/60 transition-colors">
-                <div class="w-10 h-10 rounded-full bg-rose-50 flex items-center justify-center mb-4">
-                    <iconify-icon icon="solar:cupid-linear" class="text-xl text-rose-400"></iconify-icon>
-                </div>
-                <h3 class="text-xs font-semibold text-slate-800 mb-2">Romance</h3>
+        <div class="reveal delay-500 mt-12 grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
+            <div class="p-5 rounded-2xl bg-white/30 border border-white/50 backdrop-blur-sm">
+                <iconify-icon icon="solar:cupid-linear" class="text-2xl text-rose-400 mb-3"></iconify-icon>
+                <h3 class="text-xs font-semibold text-slate-800 mb-1">Romance</h3>
                 <p class="text-[10px] text-slate-500 leading-relaxed">
-                    A day dedicated entirely to celebrating how amazing you are, just the two of us.
+                    A day dedicated entirely to celebrating how amazing you are.
                 </p>
             </div>
-            <div class="p-6 rounded-2xl bg-white/40 border border-white/60 backdrop-blur-sm hover:bg-white/60 transition-colors">
-                 <div class="w-10 h-10 rounded-full bg-rose-50 flex items-center justify-center mb-4">
-                    <iconify-icon icon="solar:confetti-minimalistic-linear" class="text-xl text-rose-400"></iconify-icon>
-                </div>
-                <h3 class="text-xs font-semibold text-slate-800 mb-2">Fun</h3>
+            <div class="p-5 rounded-2xl bg-white/30 border border-white/50 backdrop-blur-sm">
+                <iconify-icon icon="solar:confetti-minimalistic-linear" class="text-2xl text-rose-400 mb-3"></iconify-icon>
+                <h3 class="text-xs font-semibold text-slate-800 mb-1">Fun</h3>
                 <p class="text-[10px] text-slate-500 leading-relaxed">
-                    Prepared to laugh until your cheeks hurt? I hope so, because that's the plan.
+                    Prepared to laugh until your cheeks hurt? I hope so.
                 </p>
             </div>
-            <div class="p-6 rounded-2xl bg-white/40 border border-white/60 backdrop-blur-sm hover:bg-white/60 transition-colors">
-                 <div class="w-10 h-10 rounded-full bg-rose-50 flex items-center justify-center mb-4">
-                    <iconify-icon icon="solar:heart-shine-linear" class="text-xl text-rose-400"></iconify-icon>
-                </div>
-                <h3 class="text-xs font-semibold text-slate-800 mb-2">Memories</h3>
+            <div class="p-5 rounded-2xl bg-white/30 border border-white/50 backdrop-blur-sm">
+                <iconify-icon icon="solar:heart-shine-linear" class="text-2xl text-rose-400 mb-3"></iconify-icon>
+                <h3 class="text-xs font-semibold text-slate-800 mb-1">Memories</h3>
                 <p class="text-[10px] text-slate-500 leading-relaxed">
-                    Let's create a moment we'll look back on and smile about for a long time.
+                    Let's create a moment we'll look back on and smile about.
                 </p>
             </div>
         </div>
 
     </main>
 
-    <footer class="w-full py-8 text-center z-10 relative">
+    <footer class="w-full py-6 text-center z-10 mt-auto">
         <p class="text-[10px] text-slate-400 font-medium tracking-widest uppercase opacity-60 flex items-center justify-center gap-2">
             Made for you <iconify-icon icon="solar:heart-bold" class="text-rose-300"></iconify-icon>
         </p>
     </footer>
 
     <!-- Success Modal -->
-    <div id="success-modal" class="fixed inset-0 z-[100] flex items-center justify-center opacity-0 pointer-events-none transition-all duration-500 bg-white/80 backdrop-blur-3xl px-4">
-        <div id="modal-content" class="text-center p-8 md:p-12 max-w-sm w-full bg-white rounded-3xl border border-rose-100 shadow-[0_20px_50px_rgba(255,228,230,0.5)] scale-90 transition-all duration-500">
-            <div class="w-20 h-20 mx-auto bg-rose-50 rounded-full flex items-center justify-center text-rose-500 mb-6 border border-rose-100">
-                <iconify-icon icon="solar:heart-bold" class="text-4xl animate-bounce"></iconify-icon>
+    <div id="success-modal" class="fixed inset-0 z-[100] flex items-center justify-center opacity-0 pointer-events-none transition-all duration-500 bg-white/90 backdrop-blur-3xl">
+        <div id="modal-content" class="text-center p-8 max-w-sm w-full scale-90 transition-all duration-500">
+            <div class="w-24 h-24 mx-auto bg-gradient-to-tr from-rose-100 to-white rounded-full flex items-center justify-center text-rose-500 mb-6 border border-rose-100 shadow-lg shadow-rose-100/50">
+                <iconify-icon icon="solar:heart-bold" class="text-5xl animate-bounce"></iconify-icon>
             </div>
-            <h2 class="text-2xl md:text-3xl font-medium tracking-tight text-slate-900 mb-3">
+            <h2 class="text-3xl font-medium tracking-tight text-slate-900 mb-2">
                 It's a Date!
             </h2>
             <p class="text-sm font-light text-slate-500 leading-relaxed mb-8">
                 You've officially made my day. <br>I can't wait to see you.
             </p>
             <div class="flex flex-col gap-3">
-                <div class="flex items-center justify-center gap-2 px-4 py-3 bg-slate-50 rounded-xl border border-slate-100 text-slate-600">
+                <div class="flex items-center justify-center gap-2 px-4 py-3 bg-white rounded-xl border border-slate-100 text-slate-600 shadow-sm">
                     <iconify-icon icon="solar:calendar-date-linear" class="text-rose-500 text-lg"></iconify-icon>
                     <span class="text-xs font-medium">February 14th</span>
                 </div>
@@ -257,11 +247,15 @@
         const modalContent = document.getElementById('modal-content');
         let noHoverCount = 0;
 
-        // Interaction Logic
+        // Interaction Logic for Secret Files
         function showSecret(btn, message) {
             const display = document.getElementById('secret-display');
             
-            // Reset state
+            // Visual click feedback
+            btn.style.transform = 'scale(0.95)';
+            setTimeout(() => btn.style.transform = '', 150);
+            
+            // Update text
             display.style.opacity = '0';
             display.style.transform = 'translateY(5px)';
             
@@ -272,58 +266,64 @@
             }, 150);
         }
 
-        // Dodging Logic - High Sensitivity & Viewport Safe
+        // Dodging Logic (Runaway Button)
         function dodgeButton() {
             noHoverCount++;
             
-            // Text changes to make it cute
+            // Text changes
             const texts = ["Are you sure?", "Really?", "Think again!", "Nope!", "Try again!", "Please?"];
             if (noHoverCount <= texts.length) {
                 btnNo.querySelector('span').innerText = texts[noHoverCount - 1];
             }
 
             // Get viewport dimensions
-            const maxX = window.innerWidth - btnNo.offsetWidth - 20;
-            const maxY = window.innerHeight - btnNo.offsetHeight - 20;
+            const winWidth = window.innerWidth;
+            const winHeight = window.innerHeight;
             
-            // Switch to fixed position to allow full screen movement
-            btnNo.style.position = 'fixed';
-            
-            // Calculate random position
-            // We use math.max to ensure it doesn't go off the top/left edges
-            const randomX = Math.max(10, Math.random() * maxX);
-            const randomY = Math.max(10, Math.random() * maxY);
+            // Button dimensions
+            const btnWidth = btnNo.offsetWidth;
+            const btnHeight = btnNo.offsetHeight;
 
+            // Padding from edges
+            const padding = 20;
+
+            // Calculate max available space
+            const maxX = winWidth - btnWidth - padding;
+            const maxY = winHeight - btnHeight - padding;
+            
+            // Generate random position within safe viewport area
+            const randomX = Math.max(padding, Math.random() * maxX);
+            const randomY = Math.max(padding, Math.random() * maxY);
+
+            // Apply fixed position to ensure it moves regardless of scroll
+            btnNo.style.position = 'fixed';
             btnNo.style.left = randomX + 'px';
             btnNo.style.top = randomY + 'px';
             
-            // Add slight rotation for character
+            // Add slight rotation
             const rotate = Math.random() * 20 - 10;
             btnNo.style.transform = `rotate(${rotate}deg)`;
         }
 
-        // Add multiple listeners to ensure it's impossible to click
-        // Use standard event listeners
+        // Event Listeners for the No Button
         btnNo.addEventListener('mouseover', dodgeButton);
-        btnNo.addEventListener('touchstart', (e) => {
-            // e.preventDefault(); // Don't prevent default scrolling on touch unless touching button
-            dodgeButton();
-        });
         btnNo.addEventListener('click', (e) => {
             e.preventDefault();
+            e.stopPropagation();
+            dodgeButton();
+        });
+        btnNo.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
             dodgeButton();
         });
 
+        // Accept Proposal Logic
         function acceptProposal() {
-            // Hide the No button immediately
             btnNo.style.display = 'none';
-
-            // Show modal with animation
             successModal.classList.remove('opacity-0', 'pointer-events-none');
             modalContent.classList.remove('scale-90');
             modalContent.classList.add('scale-100');
-
-            // Trigger confetti
             createConfetti();
         }
 
@@ -340,8 +340,7 @@
                     confetti.innerHTML = `<iconify-icon icon="solar:${randomIcon}"></iconify-icon>`;
                     
                     confetti.style.left = Math.random() * 100 + 'vw';
-                    // Start from slightly above viewport
-                    confetti.style.top = '-50px';
+                    confetti.style.top = -20 + 'px';
                     confetti.style.color = colors[Math.floor(Math.random() * colors.length)];
                     confetti.style.fontSize = (Math.random() * 20 + 10) + 'px';
                     confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
@@ -353,5 +352,5 @@
             }
         }
     </script>
-
-</body></html>
+</body>
+</html>
